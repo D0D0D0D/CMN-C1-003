@@ -1,0 +1,36 @@
+# Agent Manifest — AgentRegistry entry point
+id: "CMN-C1-003"
+name: "ChatAgent"
+namespace: "cmn"
+version: "1.0.0"
+enabled: true
+category: "Cat 1"
+generation_mode: "llm"
+industry: "CMN"
+
+# This implementation inherits the framework graph directly.
+base_type: "AgentBaseGraph"
+
+# Entry point — a single dotted import path.
+class: "src.agent.ChatAgent"
+
+# Security
+required_trust_level: "VERIFIED_EXTERNAL"
+s3_gate_enabled: true
+mask_patterns:
+  - account_number
+  - mynumber
+  - appi_sensitive
+
+# The implementation has no mandatory secret or provider-extra dependency.
+# A concrete LLM client is supplied through the template's injection seam.
+requires:
+  secrets: []
+  extras: []
+
+# Audit field names and counts only; conversation content is never logged.
+audit_log_fields:
+  - template_id
+  - session_id
+  - history_turn_count
+  - model

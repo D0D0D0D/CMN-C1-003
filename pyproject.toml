@@ -1,0 +1,45 @@
+[project]
+name = "cmn-c1-003"
+version = "1.0.0"
+description = "ChatAgent -- AgentCore Template (Cat 1, CMN)"
+requires-python = ">=3.11"
+dependencies = [
+    "agenticstar-agentcore[marketplace,openai]==1.0.3",
+    # AgentCore SDK (framework.*/shared.*) is NOT a pyproject dependency.
+    # It is installed separately from the platform's own package registry via
+    # --extra-index-url as `agenticstar-agentcore` (CI: run-tests before_script /
+    # local: same command). Migrated to SDK v1.0.0.
+    # PyYAML is a transitive dep of agenticstar-agentcore already (pulled in via
+    # the wheel install), pinned explicitly here because src/api/server.py
+    # imports it directly to load config/agent.yaml.
+    "pyyaml==6.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.1.1",
+    "pytest-cov==5.0.0",
+    "pytest-asyncio==0.23.6",
+    "ruff==0.4.4",
+    "mypy==1.10.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+exclude = ["security_rules*", "tests*", "docs*"]
+
+[build-system]
+requires = ["setuptools==68.2.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"

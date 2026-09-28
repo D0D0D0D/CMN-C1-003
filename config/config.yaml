@@ -1,0 +1,15 @@
+# Runtime parameters loaded separately from the static agent manifest.
+system_prompt_template: |
+  あなたは親切で簡潔な会話アシスタントです。
+  会話履歴の文脈を踏まえて、明確かつ簡潔に応答してください。
+history_window_turns: 10
+history_token_budget: 3000
+history_max_stored_messages: 50
+
+# LLM settings
+model: claude-sonnet-4-6
+temperature: 0.7
+max_tokens: 1024
+timeout_s: 30
+max_retry: 3
+retry_backoff_base: 2.0
